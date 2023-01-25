@@ -1,5 +1,6 @@
 package fr.eliasmorio.td1
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,8 +25,13 @@ class AcceuilView : AppCompatActivity() {
             for (btn in btns) {
                 if (btn == v) {
                     btn.setColorFilter(Color.BLUE)
+                    btn.backgroundTintList = ColorStateList(
+                        arrayOf(intArrayOf(android.R.attr.state_enabled)),
+                        intArrayOf(Color.BLUE)
+                    )
                 } else {
-                    btn.setColorFilter(Color.LTGRAY)
+                    btn.setColorFilter(Color.BLACK
+                    )
                 }
             }
             findViewById<TextView>(R.id.transportTitle).text =  "Transport choisi : " + v.contentDescription
