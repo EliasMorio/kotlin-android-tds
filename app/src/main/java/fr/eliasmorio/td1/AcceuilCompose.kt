@@ -51,51 +51,60 @@ fun Greeting() {
             style = MaterialTheme.typography.h4,
             textAlign = TextAlign.Center
         )
+        val defaultColor = remember { mutableStateOf(Color.White) }
+        val selectedColor = remember { mutableStateOf(Color.Blue) }
 
         val modifierImage = Modifier
             .padding(60.dp)
             .size(70.dp)
             .border(2.dp, MaterialTheme.colors.primary, MaterialTheme.shapes.small)
-            .background(MaterialTheme.colors.background)
         Row(modifier = Modifier.fillMaxWidth()) {
-            val color = remember {
-               mutableStateOf(Color.Blue)
-            }
+
             Image(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_directions_walk_24),
                 contentDescription = "Walk",
                 modifier = modifierImage
-                    .background(color = color.value)
+                    .background(if (choix.value == 1) selectedColor.value else defaultColor.value)
                     .clickable {
                         choix.value = 1
-                        color.value=Color.Red
                     }
             )
             Image(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_directions_bike_24),
                 contentDescription = "Bike",
-                modifier = modifierImage.clickable {
-                    choix.value = 2 }
+                modifier = modifierImage
+                    .background(if (choix.value == 2) selectedColor.value else defaultColor.value)
+                    .clickable {
+                    choix.value = 2
+                }
             )
         }
 
         Row(modifier =Modifier.fillMaxWidth() )  {
             Image(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_directions_car_24),
                 contentDescription = "Car",
-                modifier = modifierImage.clickable { choix.value = 3 }
+                modifier = modifierImage
+                    .background(if (choix.value == 3) selectedColor.value else defaultColor.value)
+                    .clickable { choix.value = 3 }
 
             )
             Image(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_directions_bus_24),
             contentDescription = "Bus",
-                modifier = modifierImage.clickable { choix.value = 4 }
+                modifier = modifierImage
+                    .background(if (choix.value == 4) selectedColor.value else defaultColor.value)
+                    .clickable { choix.value = 4 }
             )
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             Image(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_train_24),
                 contentDescription = "Train",
-                modifier = modifierImage.clickable { choix.value = 5 }
+                modifier = modifierImage
+                    .background(if (choix.value == 5) selectedColor.value else defaultColor.value)
+                    .clickable { choix.value = 5 }
             )
             Image(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_airplanemode_active_24),
                 contentDescription = "Plane",
-                modifier = modifierImage.clickable { choix.value = 6 }
+                modifier = modifierImage
+                    .background(if (choix.value == 6) selectedColor.value else defaultColor.value)
+                    .clickable { choix.value = 6 }
             )
         }
     }
