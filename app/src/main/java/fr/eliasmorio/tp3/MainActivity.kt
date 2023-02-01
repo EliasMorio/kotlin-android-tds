@@ -1,19 +1,15 @@
 package fr.eliasmorio.tp3
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -23,37 +19,54 @@ import fr.eliasmorio.tp3.ui.theme.TP3Theme
 
 class MainActivity : ComponentActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
+            val (sel, setSel) = remember { mutableStateOf(-1) }
+            val (t, setT) = remember{mutableStateOf("")}
+            val contenu = remember {
+                mutableStateListOf<String>()
+            }
             TP3Theme {
                 val mod = Modifier
                     .fillMaxWidth()
                     .background(Color.LightGray)
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Liste(mod)
+                Column {
+                    Liste(mod, contenu, sel, setSel)
+                    Liste(mod, contenu, sel, setSel)
+                    Entree(t = t, setT = setT, contenu = contenu)
                 }
             }
         }
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
-fun Liste(modifier: Modifier = Modifier ) {
-    val liste = listOf("Elément 1", "Elément 2", "Elément 3")
+fun Liste(modifier: Modifier = Modifier, liste : List<String>,  sel : Int, setSel : (Int) -> Unit) {
     val context = LocalContext.current
 
-
     Column () {
-        for (el in liste){
-            Surface(color = Color.Transparent, modifier = modifier.clickable { Toast.makeText(context, "Clic", Toast.LENGTH_SHORT).show() }) {
-                Text(text = el)
+        for (ind in liste.indices){
+            Surface(color = if (ind == sel) Color.Blue else Color.Transparent,
+                modifier = modifier.clickable {
+                    setSel(ind)
+                    Toast.makeText(context, "Clic", Toast.LENGTH_SHORT).show()
+                }) {
+                Text(text = liste[ind])
             }
         }
+    }
+}
+
+@Composable
+fun Entree(t : String, setT : (String) -> Unit, contenu : MutableList<String>){
+    Row() {
+        Text(text = "Texte : ")
+        TextField(value = t, onValueChange = { setT(it) })
+        Button(onClick = {
+            contenu.add(t) }, content = { Text(text = "+") })
     }
 }
 
@@ -64,7 +77,5 @@ fun DefaultPreview() {
         .padding(16.dp)
         .fillMaxWidth()
         .background(Color.LightGray)
-    TP3Theme {
-        Liste(mod)
-    }
+
 }
