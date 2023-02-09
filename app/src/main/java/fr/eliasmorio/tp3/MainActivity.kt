@@ -66,7 +66,8 @@ fun Entree(t : String, setT : (String) -> Unit, contenu : MutableList<String>){
         Text(text = "Texte : ")
         TextField(value = t, onValueChange = { setT(it) })
         Button(onClick = {
-            contenu.add(t) }, content = { Text(text = "+") })
+            contenu.add(t)
+                         setT("")}, content = { Text(text = "+") })
     }
 }
 
