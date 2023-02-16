@@ -1,4 +1,4 @@
-package but.info.tp5.entity
+package but.info.tp5
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

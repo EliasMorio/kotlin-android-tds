@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 
 
 abstract class Base : RoomDatabase(){
+    abstract fun chansonDAO(): ChansonDAO
 
     companion object {
         private var INSTANCE: Base? = null
