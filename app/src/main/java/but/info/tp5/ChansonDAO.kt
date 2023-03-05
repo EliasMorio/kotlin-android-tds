@@ -2,6 +2,7 @@ package but.info.tp5
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
@@ -13,7 +14,8 @@ interface ChansonDAO {
     @Query("SELECT * FROM chanson WHERE id = :id")
     fun getById(id: Long): LiveData<Chanson>
 
-    @Query("I")
+    @Insert
+    fun insert(chanson: Chanson)
 
 
 }
